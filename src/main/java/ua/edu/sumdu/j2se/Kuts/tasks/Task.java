@@ -2,9 +2,6 @@ package ua.edu.sumdu.j2se.Kuts.tasks;
 
 public class Task {
 
-    public static void main(String[] args) {
-    }
-
     /**
      * Constructors Task() create an inactive task that
      * executes at the specified time and have a specified name
@@ -69,6 +66,13 @@ public class Task {
 
     public int getRepeatedInterval() {
         return interval;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "title='" + title + '\'' +
+                '}';
     }
 
     public void setTime(int startTime, int endTime, int interval) {
