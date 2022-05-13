@@ -1,0 +1,6 @@
+.idea
+README.md
+target/
+readme_img/
+*.iml
+tests
