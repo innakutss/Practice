@@ -137,14 +137,34 @@ public class Task {
      */
 
     public int nextTimeAfter(int current) {
-        if (!repeated || current >= endTime) {
+        if (!active) {
             return -1;
         }
+        int startTime = this.startTime;
+        int endTime = this.endTime;
+        if (isNonRepeative()) {
+            endTime = this.time;
+            startTime = this.time;
+        }
+        if (current >= endTime) {
+            return -1;
+        }
+        if (current < startTime) {
+            return startTime;
+        }
+
         int curr = startTime;
-        while (curr < current) {
+        while (curr <= current) {
             curr += interval;
         }
+        if (curr >= endTime) {
+            return -1;
+        }
         return curr;
+    }
+
+    private boolean isNonRepeative() {
+        return this.startTime == 0 && this.endTime == 0;
     }
 }
 
