@@ -21,7 +21,7 @@ public class Task {
     private boolean repeated;
 
 
-    Task(String title, int time) throws IllegalArgumentException {
+    public Task(String title, int time) throws IllegalArgumentException {
         if (time < 0) {
             throw new IllegalArgumentException("Negative number");
         }
@@ -30,7 +30,7 @@ public class Task {
         this.active = false;
     }
 
-    Task(String title, int startTime, int endTime, int interval) {
+    public Task(String title, int startTime, int endTime, int interval) {
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
