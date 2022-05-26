@@ -36,6 +36,7 @@ public class Task {
         this.endTime = endTime;
         this.interval = interval;
         this.active = false;
+        this.repeated = true;
     }
 
 
@@ -47,7 +48,7 @@ public class Task {
         return this.title = title;
     }
 
-    public boolean isActive(boolean active) {
+    public boolean isActive() {
         return active;
     }
 
@@ -163,8 +164,10 @@ public class Task {
         return curr;
     }
 
-    private boolean isNonRepeative() {
+    public boolean isNonRepeative() {
         return this.startTime == 0 && this.endTime == 0;
     }
+
+
 }
 
