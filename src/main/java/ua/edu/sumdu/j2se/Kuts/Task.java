@@ -87,7 +87,7 @@ public class Task {
         return endTime;
     }
 
-    public int getRepeatedInterval() {
+    public int getRepeatInterval() {
         if (!repeated) {
             return 0;
         }
