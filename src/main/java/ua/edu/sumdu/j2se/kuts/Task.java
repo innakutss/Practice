@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.Kuts;
+package ua.edu.sumdu.j2se.kuts;
 
 import java.util.Objects;
 
