@@ -3,7 +3,7 @@ package ua.edu.sumdu.j2se.kuts;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList {
 
     private int indexTracker = 0;
     private Task[] arrOfTasks = new Task[5];
@@ -11,36 +11,7 @@ public class ArrayTaskList {
     public ArrayTaskList() {
     }
 
-    public void add(Task task) {
-        if (indexTracker < arrOfTasks.length) {
-            arrOfTasks [indexTracker++] = task;
-        } else {
-            arrOfTasks = Arrays.copyOf(arrOfTasks, arrOfTasks.length * 2);
-        }
-    }
 
-    public boolean remove(Task task) {
-        boolean result = false;
-
-        int deleteElementIndex = 0;
-        for(int i = 0; i < indexTracker; i++) {
-            Task taskFromInternalArray = arrOfTasks[i];
-            if (task.equals(taskFromInternalArray)) {
-                deleteElementIndex = i;
-                result = true;
-            }
-        }
-        if (isNotDeleteElementFound(result)) {
-            return false;
-        }
-        int newSize;
-        if ((newSize = indexTracker -1) > deleteElementIndex) {
-            System.arraycopy(arrOfTasks, deleteElementIndex + 1, arrOfTasks, deleteElementIndex,
-                    newSize - deleteElementIndex);
-        }
-        arrOfTasks[indexTracker = newSize] = null;
-        return result;
-    }
 
     private boolean isNotDeleteElementFound(boolean result) {
         return !result;
@@ -65,17 +36,6 @@ public class ArrayTaskList {
         return index < arrOfTasks.length ? arrOfTasks[index] : new Task("", 0);
     }
 
-    public ArrayTaskList incoming(int from, int to) {
-        ArrayTaskList result = new ArrayTaskList();
-        for (Task task : arrOfTasks) {
-            if (Objects.isNull(task))
-                continue;
-            if (task.getTime() > from && task.getTime() <= to && task.isActive()) {
-                result.add(task);
-            }
-        }
-        return result;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -95,4 +55,49 @@ public class ArrayTaskList {
     }
 
 
+    @Override
+    public void add(Task task) {
+        if (indexTracker < arrOfTasks.length) {
+            arrOfTasks [indexTracker++] = task;
+        } else {
+            arrOfTasks = Arrays.copyOf(arrOfTasks, arrOfTasks.length * 2);
+        }
+    }
+
+    @Override
+    public boolean remove(Task task) {
+        boolean result = false;
+
+        int deleteElementIndex = 0;
+        for(int i = 0; i < indexTracker; i++) {
+            Task taskFromInternalArray = arrOfTasks[i];
+            if (task.equals(taskFromInternalArray)) {
+                deleteElementIndex = i;
+                result = true;
+            }
+        }
+        if (isNotDeleteElementFound(result)) {
+            return false;
+        }
+        int newSize;
+        if ((newSize = indexTracker -1) > deleteElementIndex) {
+            System.arraycopy(arrOfTasks, deleteElementIndex + 1, arrOfTasks, deleteElementIndex,
+                    newSize - deleteElementIndex);
+        }
+        arrOfTasks[indexTracker = newSize] = null;
+        return result;
+    }
+
+    @Override
+    public AbstractTaskList incoming(int from, int to) {
+        ArrayTaskList result = new ArrayTaskList();
+        for (Task task : arrOfTasks) {
+            if (Objects.isNull(task))
+                continue;
+            if (task.getTime() > from && task.getTime() <= to && task.isActive()) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
 }
