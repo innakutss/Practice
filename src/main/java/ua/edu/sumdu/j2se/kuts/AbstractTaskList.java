@@ -6,10 +6,24 @@ public abstract class AbstractTaskList {
 
     public abstract boolean remove(Task task);
 
-    public abstract AbstractTaskList incoming(int from, int to);
-
     public abstract int size();
 
     public abstract Task getTask(int index) throws IndexOutOfBoundsException;
 
+    public AbstractTaskList incoming(int from, int to) {
+        AbstractTaskList abstractList = new ArrayTaskList();
+        if (from > to) {
+            return abstractList;
+        }
+        for (int i = 0; i < size(); i++) {
+            Task thisTask = getTask(i);
+        if (thisTask == null) {
+            continue;
+        }
+        if (thisTask.getTime() > from && thisTask.getTime() <= to && thisTask.isActive()) {
+            abstractList.add(thisTask);
+        }
+        }
+        return abstractList;
+    }
 }
