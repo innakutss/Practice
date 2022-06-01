@@ -10,6 +10,12 @@ public abstract class AbstractTaskList {
 
     public abstract Task getTask(int index) throws IndexOutOfBoundsException;
 
+    /**
+     *
+     * @param from period of time that task starts with
+     * @param to period of time till what task must be finished
+     * @return ArrayTaskList with tasks
+     */
     public AbstractTaskList incoming(int from, int to) {
         AbstractTaskList abstractList = new ArrayTaskList();
         if (from > to) {

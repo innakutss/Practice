@@ -72,20 +72,6 @@ public class LinkedTaskList extends AbstractTaskList {
         return result.getData();
     }
 
-//    @Override
-//    public AbstractTaskList incoming(int from, int to) {
-//        LinkedTaskList result = new LinkedTaskList();
-//        Node currentEl = head;
-//        while (currentEl != null) {
-//            if (currentEl.data.getTime() > from && currentEl.data.getTime() <= to && currentEl.data.isActive()) {
-//                result.add(currentEl.data);
-//            }
-//            currentEl = currentEl.getNextNode();
-//        }
-//        return result;
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

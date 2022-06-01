@@ -69,19 +69,6 @@ public class ArrayTaskList extends AbstractTaskList {
         return index < arrOfTasks.length ? arrOfTasks[index] : new Task("", 0);
     }
 
-//    @Override
-//    public AbstractTaskList incoming(int from, int to) {
-//        ArrayTaskList result = new ArrayTaskList();
-//        for (Task task : arrOfTasks) {
-//            if (Objects.isNull(task))
-//                continue;
-//            if (task.getTime() > from && task.getTime() <= to && task.isActive()) {
-//                result.add(task);
-//            }
-//        }
-//        return result;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
