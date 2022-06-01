@@ -11,50 +11,6 @@ public class ArrayTaskList extends AbstractTaskList {
     public ArrayTaskList() {
     }
 
-
-
-    private boolean isNotDeleteElementFound(boolean result) {
-        return !result;
-    }
-
-    public int getSrcPosition(Task[] arrOfTasks, int i) {
-        if (i >= arrOfTasks.length) {
-            return arrOfTasks.length - 1;
-        }
-        return i;
-    }
-
-    public int size() {
-        return indexTracker;
-
-    }
-
-    public Task getTask(int index) throws IndexOutOfBoundsException {
-        if (index >= size()) {
-            throw new IndexOutOfBoundsException("Out of valid range");
-        }
-        return index < arrOfTasks.length ? arrOfTasks[index] : new Task("", 0);
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ArrayTaskList that = (ArrayTaskList) o;
-        return Arrays.equals(arrOfTasks, that.arrOfTasks);
-    }
-
-    @Override
-    public int hashCode() {
-        return Arrays.hashCode(arrOfTasks);
-    }
-
-    public String toString() {
-        return "ArrayTaskList {arrOfTasks = " + Arrays.toString(arrOfTasks) + '}';
-    }
-
-
     @Override
     public void add(Task task) {
         if (indexTracker < arrOfTasks.length) {
@@ -88,6 +44,31 @@ public class ArrayTaskList extends AbstractTaskList {
         return result;
     }
 
+
+
+    private boolean isNotDeleteElementFound(boolean result) {
+        return !result;
+    }
+
+    public int getSrcPosition(Task[] arrOfTasks, int i) {
+        if (i >= arrOfTasks.length) {
+            return arrOfTasks.length - 1;
+        }
+        return i;
+    }
+
+    public int size() {
+        return indexTracker;
+
+    }
+
+    public Task getTask(int index) throws IndexOutOfBoundsException {
+        if (index >= size()) {
+            throw new IndexOutOfBoundsException("Out of valid range");
+        }
+        return index < arrOfTasks.length ? arrOfTasks[index] : new Task("", 0);
+    }
+
     @Override
     public AbstractTaskList incoming(int from, int to) {
         ArrayTaskList result = new ArrayTaskList();
@@ -100,4 +81,23 @@ public class ArrayTaskList extends AbstractTaskList {
         }
         return result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayTaskList that = (ArrayTaskList) o;
+        return Arrays.equals(arrOfTasks, that.arrOfTasks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(arrOfTasks);
+    }
+
+    public String toString() {
+        return "ArrayTaskList {arrOfTasks = " + Arrays.toString(arrOfTasks) + '}';
+    }
+
+
 }

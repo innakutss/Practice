@@ -10,4 +10,6 @@ public abstract class AbstractTaskList {
 
     public abstract int size();
 
+    public abstract Task getTask(int index) throws IndexOutOfBoundsException;
+
 }

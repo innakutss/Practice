@@ -10,39 +10,6 @@ public class LinkedTaskList extends AbstractTaskList {
     private int amountOfElements = 0;
 
 
-
-
-    public int size() {
-        return amountOfElements;
-    }
-
-    public Task getTask(int index) {
-        if (index >= size()) {
-            throw new IndexOutOfBoundsException("Out of valid range");
-        }
-        int i = 0;
-        Node result = head;
-        while (i != index) {
-            result = result.getNextNode();
-            i++;
-        }
-        return result.getData();
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LinkedTaskList that = (LinkedTaskList) o;
-        return amountOfElements == that.amountOfElements;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(amountOfElements);
-    }
-
     @Override
     public void add(Task task) {
         if (task == null) {
@@ -88,6 +55,23 @@ public class LinkedTaskList extends AbstractTaskList {
     }
 
 
+    public int size() {
+        return amountOfElements;
+    }
+
+    public Task getTask(int index) {
+        if (index >= size()) {
+            throw new IndexOutOfBoundsException("Out of valid range");
+        }
+        int i = 0;
+        Node result = head;
+        while (i != index) {
+            result = result.getNextNode();
+            i++;
+        }
+        return result.getData();
+    }
+
     @Override
     public AbstractTaskList incoming(int from, int to) {
         LinkedTaskList result = new LinkedTaskList();
@@ -100,6 +84,21 @@ public class LinkedTaskList extends AbstractTaskList {
         }
         return result;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedTaskList that = (LinkedTaskList) o;
+        return amountOfElements == that.amountOfElements;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amountOfElements);
+    }
+
 
     private class Node {
         private Task data;
