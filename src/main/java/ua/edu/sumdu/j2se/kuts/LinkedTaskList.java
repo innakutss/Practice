@@ -3,7 +3,7 @@ package ua.edu.sumdu.j2se.kuts;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class LinkedTaskList {
+public class LinkedTaskList extends AbstractTaskList {
 
     private Node head;
     private Node tail;
@@ -68,18 +68,6 @@ public class LinkedTaskList {
             i++;
         }
         return result.getData();
-    }
-
-    public LinkedTaskList incoming(int from, int to) {
-        LinkedTaskList result = new LinkedTaskList();
-        Node currentEl = head;
-        while (currentEl != null) {
-            if (currentEl.data.getTime() > from && currentEl.data.getTime() <= to && currentEl.data.isActive()) {
-                result.add(currentEl.data);
-            }
-            currentEl = currentEl.getNextNode();
-        }
-        return result;
     }
 
     @Override
