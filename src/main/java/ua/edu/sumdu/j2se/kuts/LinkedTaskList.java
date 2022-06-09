@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2se.kuts;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -23,8 +24,6 @@ public class LinkedTaskList extends AbstractTaskList {
             oldTail.setNextNode(newNode);
         }
         amountOfElements++;
-
-
     }
 
     public boolean remove(Task task) {
@@ -83,6 +82,18 @@ public class LinkedTaskList extends AbstractTaskList {
         return Objects.hash(amountOfElements);
     }
 
+    @Override
+    public String toString() {
+        return "LinkedTaskList{" +
+                "head=" + head +
+                ", tail=" + tail +
+                ", amountOfElements=" + amountOfElements +
+                '}';
+    }
+
+
+
+
     private class Node {
         private Task data;
         private Node nextNode;
@@ -106,6 +117,44 @@ public class LinkedTaskList extends AbstractTaskList {
         public void setNextNode(Node nextNode) {
             this.nextNode = nextNode;
         }
+    }
+
+
+
+
+    private class LinkedListIterator implements Iterator<Task> {
+        private LinkedTaskList taskList;
+        private Task task;
+        private Node currentElement;
+
+        public LinkedListIterator(LinkedTaskList taskList) {
+            this.taskList = taskList;
+            this.task = null;
+            this.currentElement = taskList.head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentElement != null;
+        }
+
+        @Override
+        public Task next() {
+            task = currentElement.data;
+            currentElement = currentElement.nextNode;
+            return task;
+        }
+
+        @Override
+        public void remove() {
+            if (currentElement == null || task == null) {
+                throw new IllegalStateException();
+            }
+            taskList.remove(task);
+        }
+    }
+    public Iterator<Task> iterator() {
+        return new LinkedListIterator(this);
     }
 }
 

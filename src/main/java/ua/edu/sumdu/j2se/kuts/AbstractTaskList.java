@@ -1,6 +1,11 @@
 package ua.edu.sumdu.j2se.kuts;
 
-public abstract class AbstractTaskList {
+import java.util.Iterator;
+import java.util.Objects;
+
+public abstract class AbstractTaskList implements Iterable<Task> {
+
+    private int amountOfElements = 0;
 
     public abstract void add(Task task);
 
@@ -31,5 +36,40 @@ public abstract class AbstractTaskList {
         }
         }
         return abstractList;
+    }
+    public abstract Iterator<Task> iterator();
+
+    @Override
+    public String toString() {
+        Iterator<Task> iterator = iterator();
+        while (!iterator.hasNext())
+            return "";
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        int size = size();
+        for (Task task : this) {
+            if (task == null) {
+                continue;
+            }
+            sb.append(task);
+            if (size > i) {
+                sb.append(" ");
+            }
+            i++;
+        }
+        return sb + ";";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractTaskList that = (AbstractTaskList) o;
+        return amountOfElements == that.amountOfElements;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amountOfElements);
     }
 }

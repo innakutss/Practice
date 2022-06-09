@@ -1,19 +1,15 @@
 package ua.edu.sumdu.j2se.kuts;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class ArrayTaskList extends AbstractTaskList {
 
-    private int indexTracker = 0;
+    private int amountOfElements = 0;
     private Task[] arrOfTasks = new Task[5];
 
-    public ArrayTaskList() {
-    }
-
     public void add(Task task) {
-        if (indexTracker < arrOfTasks.length) {
-            arrOfTasks [indexTracker++] = task;
+        if (amountOfElements < arrOfTasks.length) {
+            arrOfTasks[amountOfElements++] = task;
         } else {
             arrOfTasks = Arrays.copyOf(arrOfTasks, arrOfTasks.length * 2);
         }
@@ -23,7 +19,7 @@ public class ArrayTaskList extends AbstractTaskList {
         boolean result = false;
 
         int deleteElementIndex = 0;
-        for(int i = 0; i < indexTracker; i++) {
+        for (int i = 0; i < amountOfElements; i++) {
             Task taskFromInternalArray = arrOfTasks[i];
             if (task.equals(taskFromInternalArray)) {
                 deleteElementIndex = i;
@@ -34,11 +30,11 @@ public class ArrayTaskList extends AbstractTaskList {
             return false;
         }
         int newSize;
-        if ((newSize = indexTracker -1) > deleteElementIndex) {
+        if ((newSize = amountOfElements - 1) > deleteElementIndex) {
             System.arraycopy(arrOfTasks, deleteElementIndex + 1, arrOfTasks, deleteElementIndex,
                     newSize - deleteElementIndex);
         }
-        arrOfTasks[indexTracker = newSize] = null;
+        arrOfTasks[amountOfElements = newSize] = null;
         return result;
     }
 
@@ -54,7 +50,7 @@ public class ArrayTaskList extends AbstractTaskList {
     }
 
     public int size() {
-        return indexTracker;
+        return amountOfElements;
 
     }
 
@@ -64,6 +60,7 @@ public class ArrayTaskList extends AbstractTaskList {
         }
         return index < arrOfTasks.length ? arrOfTasks[index] : new Task("", 0);
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -83,4 +80,43 @@ public class ArrayTaskList extends AbstractTaskList {
     }
 
 
+
+
+    private class ArrayTaskListIterator implements Iterator<Task> {
+        private int cursor = 0;
+        private int lastElement = -1;
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size();
+        }
+
+        @Override
+        public Task next() {
+            int i = cursor;
+            if (i >= size()) {
+                throw new NoSuchElementException();
+            }
+            Task nextElement = getTask(i);
+            lastElement = i;
+            cursor = i + 1;
+            return nextElement;
+        }
+        @Override
+        public void remove() {
+            if (lastElement < 0)
+                throw new IllegalStateException();
+
+            try {
+                ArrayTaskList.this.remove(getTask(lastElement));
+                cursor--;
+                lastElement = -1;
+            } catch (IndexOutOfBoundsException e) {
+                throw new ConcurrentModificationException();
+            }
+        }
+    }
+        public Iterator<Task> iterator() {
+            return new ArrayTaskListIterator();
+        }
 }
