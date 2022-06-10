@@ -2,7 +2,7 @@ package ua.edu.sumdu.j2se.kuts;
 
 import java.util.Objects;
 
-public class Task {
+public class Task implements Cloneable {
 
     /**
      * Constructors Task() create an inactive task that
@@ -11,6 +11,11 @@ public class Task {
      * Method nextTimeAfter() shows the execution time
      * after specified current
      */
+
+    public Task clone() throws CloneNotSupportedException {
+        Task newTask = (Task) super.clone();
+        return newTask;
+    }
 
     private String title;
     private int time;
