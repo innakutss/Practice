@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class LinkedTaskList extends AbstractTaskList {
+public class LinkedTaskList extends AbstractTaskList implements Cloneable {
 
     private Node head;
     private Node tail;
@@ -84,11 +84,20 @@ public class LinkedTaskList extends AbstractTaskList {
 
     @Override
     public String toString() {
-        return "LinkedTaskList{" +
-                "head=" + head +
-                ", tail=" + tail +
-                ", amountOfElements=" + amountOfElements +
-                '}';
+        StringBuilder sb = new StringBuilder("LinkedTaskList { ");
+                if (head != null) {
+                    sb.append("head = ").append(head).append("\n");
+                } else if (tail != null) {
+                    sb.append("tail = ").append(tail).append("\n");
+                } else if (amountOfElements != 0) {
+                    sb.append("amountOfElements = ").append(amountOfElements);
+                }
+                return sb.toString();
+    }
+
+    public LinkedTaskList clone() throws CloneNotSupportedException {
+        LinkedTaskList clonedList = (LinkedTaskList) super.clone();
+        return clonedList;
     }
 
 

@@ -2,7 +2,7 @@ package ua.edu.sumdu.j2se.kuts;
 
 import java.util.*;
 
-public class ArrayTaskList extends AbstractTaskList {
+public class ArrayTaskList extends AbstractTaskList implements Cloneable {
 
     private int amountOfElements = 0;
     private Task[] arrOfTasks = new Task[5];
@@ -65,7 +65,7 @@ public class ArrayTaskList extends AbstractTaskList {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ArrayTaskList)) return false;
         ArrayTaskList that = (ArrayTaskList) o;
         return Arrays.equals(arrOfTasks, that.arrOfTasks);
     }
@@ -76,9 +76,29 @@ public class ArrayTaskList extends AbstractTaskList {
     }
 
     public String toString() {
-        return "ArrayTaskList {arrOfTasks = " + Arrays.toString(arrOfTasks) + '}';
+        StringBuilder sb = new StringBuilder("ArrayTaskList { ");
+        if (amountOfElements != 0) {
+            sb.append("amountOfElements = ").append(amountOfElements);
+            for (int i = 0; i < amountOfElements; i++) {
+                if (i != amountOfElements - 1) {
+                    sb.append(arrOfTasks[i].toString()).append(", ");
+                } else {
+                    sb.append(arrOfTasks[i].toString()).append(" } ");
+                }
+            }
+        }
+        return sb.toString();
     }
 
+    public ArrayTaskList clone() throws CloneNotSupportedException {
+        ArrayTaskList arrayClone = (ArrayTaskList) super.clone();
+        arrayClone.arrOfTasks = arrOfTasks.clone();
+        for (int i = 0; i < size(); i++) {
+         Task[] taskClone = arrOfTasks.clone();
+         arrayClone.arrOfTasks = taskClone;
+        }
+        return arrayClone;
+    }
 
 
 
