@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.kuts;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class ArrayTaskList extends AbstractTaskList implements Cloneable {
 
@@ -51,7 +52,6 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
 
     public int size() {
         return amountOfElements;
-
     }
 
     public Task getTask(int index) throws IndexOutOfBoundsException {
@@ -59,6 +59,11 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
             throw new IndexOutOfBoundsException("Out of valid range");
         }
         return index < arrOfTasks.length ? arrOfTasks[index] : new Task("", 0);
+    }
+
+    @Override
+    public Stream<Task> getStream() {
+        return Arrays.stream(arrOfTasks);
     }
 
 

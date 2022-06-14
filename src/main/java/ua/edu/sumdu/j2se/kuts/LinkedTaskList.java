@@ -3,6 +3,7 @@ package ua.edu.sumdu.j2se.kuts;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class LinkedTaskList extends AbstractTaskList implements Cloneable {
 
@@ -67,6 +68,18 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable {
             i++;
         }
         return result.getData();
+    }
+
+    @Override
+    public Stream<Task> getStream() {
+        Stream.Builder<Task> stream = Stream.builder();
+        for (Task thisTask : this) {
+            if (thisTask == null) {
+                continue;
+            }
+            stream.add(thisTask);
+        }
+        return stream.build();
     }
 
     @Override
