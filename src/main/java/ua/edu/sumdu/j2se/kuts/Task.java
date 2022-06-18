@@ -4,19 +4,6 @@ import java.util.Objects;
 
 public class Task implements Cloneable {
 
-    /**
-     * Constructors Task() create an inactive task that
-     * executes at the specified time and have a specified name
-     * <p>
-     * Method nextTimeAfter() shows the execution time
-     * after specified current
-     */
-
-    public Task clone() throws CloneNotSupportedException {
-        Task newTask = (Task) super.clone();
-        return newTask;
-    }
-
     private String title;
     private int time;
     private int startTime;
@@ -25,7 +12,7 @@ public class Task implements Cloneable {
     private boolean active;
     private boolean repeated;
 
-
+    // creates an inactive task
     public Task(String title, int time) throws IllegalArgumentException {
         if (time < 0) {
             throw new IllegalArgumentException("Negative number");
@@ -34,7 +21,7 @@ public class Task implements Cloneable {
         this.time = time;
         this.active = false;
     }
-
+    // creates an inactive task
     public Task(String title, int startTime, int endTime, int interval) {
         this.title = title;
         this.startTime = startTime;
@@ -135,6 +122,12 @@ public class Task implements Cloneable {
     @Override
     public int hashCode() {
         return Objects.hash(title, time);
+    }
+
+    // creates a copy of Task object
+    public Task clone() throws CloneNotSupportedException {
+        Task newTask = (Task) super.clone();
+        return newTask;
     }
 
     /**

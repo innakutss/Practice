@@ -2,6 +2,7 @@ package ua.edu.sumdu.j2se.kuts;
 
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public abstract class AbstractTaskList implements Iterable<Task> {
 
@@ -15,26 +16,23 @@ public abstract class AbstractTaskList implements Iterable<Task> {
 
     public abstract Task getTask(int index) throws IndexOutOfBoundsException;
 
+    public abstract Stream<Task> getStream();
+
     /**
      *
      * @param from period of time that task starts with
      * @param to period of time till what task must be finished
-     * @return ArrayTaskList with tasks
+     * @return List with tasks
      */
-    public AbstractTaskList incoming(int from, int to) {
-        AbstractTaskList abstractList = new ArrayTaskList();
-        if (from > to) {
-            return abstractList;
+    public final AbstractTaskList incoming(int from, int to) {
+        AbstractTaskList abstractList;
+        if (this instanceof ArrayTaskList) {
+            abstractList = TaskListFactory.createTaskList(ListTypes.types.ARRAY);
+        } else {
+            abstractList = TaskListFactory.createTaskList(ListTypes.types.LINKED);
         }
-        for (int i = 0; i < size(); i++) {
-            Task thisTask = getTask(i);
-        if (thisTask == null) {
-            continue;
-        }
-        if (thisTask.getTime() > from && thisTask.getTime() <= to && thisTask.isActive()) {
-            abstractList.add(thisTask);
-        }
-        }
+        getStream().filter(t -> t != null && (t.nextTimeAfter(from) != -1) && (t.nextTimeAfter(from) <= to))
+            .forEach(abstractList :: add);
         return abstractList;
     }
     public abstract Iterator<Task> iterator();
